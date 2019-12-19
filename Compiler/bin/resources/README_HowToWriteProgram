@@ -1,0 +1,13 @@
+GUIDE
+
+2 scopes: Global und Local
+
+Alles was nachfolgende sachen hat, muss ein ';' am ende haben. 
+
+Bei den statements braucht es innerhalb auch einen trenner ';' falls mehrere anweisungen folgen.
+
+Global:
+Variabeln und Programme müssen (bis auf das letzte) auch immer ein ';' haben.
+
+Local:
+Alle deklarationen müssen (bis auf das letzte) mit einem ';' getrennt sein.

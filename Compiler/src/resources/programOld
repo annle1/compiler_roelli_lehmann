@@ -1,0 +1,22 @@
+program intDiv
+global
+proc divide(in copy m:int, in copy n:int, out ref q:int, out ref r:int)
+do
+q init := 0;
+r init := m;
+while r >= n do
+q := q + 1;
+r := r - n
+endwhile
+endproc;
+var m:int;
+var n:int;
+var q:int;
+var r:int
+do
+? m init;
+? n init;
+call divide(m, n, q init, r init);
+! q;
+! r
+endprogram

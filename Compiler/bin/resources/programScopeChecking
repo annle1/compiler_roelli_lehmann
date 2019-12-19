@@ -1,0 +1,82 @@
+program Scopes
+global
+  // two namespaces: one for stores, one for routines
+  g1:int64 ;
+  g3:int64;
+  g4:int64;
+  b1:int64 ;
+  f: int64 ;
+  const x: int64;
+  b:bool;
+  
+  // function 1
+  fun f(p1:int64) returns var r1:int64
+  local
+    var l1:int64; g2:int64; r2:int64
+  do
+    g2 init := 10;
+    debugout g1; // global
+    debugout g2 ;
+    
+    debugout p1; // local
+    l1 init := -1; // local
+    debugout l1;
+    
+    r1 init := 3;
+    g4 init := 0;
+    
+    if p1 > 2 then
+      r1 := 2;
+      r2 init := p1 * ff(p1);
+      debugout r2;
+      g4 := 4
+    else
+      r1 := 1;
+      r2 init := 1;      
+      g4 := 4
+    endif;
+
+    
+    //debugout(l2); // does not work
+    
+    debugout g4;
+    // debugout(r2); // does not work because r2 is not initialized in this scope 
+    debugout r1
+    
+  endfun ;
+  
+  // function 2
+  fun ff(ref p1:int64) returns r1:int64
+  local
+    var l2:int64;
+    //var g1:bool; // does not work
+    var g2:int64
+  do
+    g2 init := 0;
+    debugout g1; // global
+    debugout g2;
+    debugout p1; // local
+    p1 := p1 + 1;
+    if(p1 < 10) then
+        debugout ff(p1)
+    endif;
+    //debugout l1; // does not work
+    //debugout f(g2); // does not work because f is called twice
+    l2 init := -1; // local
+    r1 init := 99
+
+  endfun
+do
+  x init := 10;
+  g1 init := 1;
+  //g3 init := true; // does not work
+  //b init := 12; // does not work
+  //debugout(f(true)); // does not work
+  //1 + 1 := 1; // does not work
+  debugin b1 init ;
+  f init := 0;
+  //debugout fff(0); // does not work  
+  // debugout ff(g1 + 3); // does not work
+  // debugout f(f);
+  debugout f(f + 4)
+endprogram

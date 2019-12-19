@@ -1,0 +1,12 @@
+program programFunction
+global
+  
+  fun bla(x:int64) returns y:int64
+  do
+    x := x * 2;
+    y init := x
+  endfun
+  
+do
+  debugout bla(4)
+endprogram

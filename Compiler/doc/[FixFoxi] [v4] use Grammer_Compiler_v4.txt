@@ -1,0 +1,283 @@
+- use "Grammar_Compiler_v4.sml";
+[opening Grammar_Compiler_v4.sml]
+Grammar_Compiler_v4.sml:307.1-307.54 Warning: type vars not generalized because of
+   value restriction are instantiated to dummy types (X1,X2,...)
+datatype term
+  = ADDOPR
+  | BECOMES
+  | BOOLOPR
+  | CALL
+  | CASE
+  | CHANGEMODE
+  | COLON
+  | COMMA
+  | DEBUGIN
+  | DEBUGOUT
+  | DEFAULTCASE
+  | DO
+  | ELSE
+  | ENDCASE
+  | ENDFUN
+  | ENDIF
+  | ENDPROC
+  | ENDPROGRAM
+  | ENDSWITCH
+  | ENDWHILE
+  | FUN
+  | GLOBAL
+  | IDENT
+  | IF
+  | INIT
+  | LITERAL
+  | LOCAL
+  | LPAREN
+  | MECHMODE
+  | MULTOPR
+  | NOT
+  | PROC
+  | PROGRAM
+  | QUESTIONMARK
+  | RELOPR
+  | RETURNS
+  | RPAREN
+  | SEMICOLON
+  | SKIP
+  | SWITCH
+  | THEN
+  | TYPE
+  | WHILE
+val string_of_term = fn : term -> string
+datatype nonterm
+  = caseNTS
+  | changeModeNTS
+  | cmd
+  | condExprNTS
+  | cpsCmd
+  | cpsCmdNTS
+  | cpsDecl
+  | cpsDeclNTS
+  | cpsStoDecl
+  | cpsStoDeclNTS
+  | decl
+  | defaultCaseNTS
+  | expr
+  | exprList
+  | exprListLparenNTS
+  | exprListNTS
+  | factor
+  | factorNTS
+  | funDecl
+  | funDeclNTS
+  | globalNTS
+  | ifelseNTS
+  | mechModeNTS
+  | monadicOpr
+  | param
+  | paramList
+  | paramListNTS
+  | paramNTS
+  | procDecl
+  | procDeclNTS
+  | program
+  | stoDecl
+  | term0
+  | term0NTS
+  | term1
+  | term1NTS
+  | term2
+  | term2NTS
+  | term3
+  | term3NTS
+  | typedIdent
+val string_of_nonterm = fn : nonterm -> string
+val string_of_gramsym = (fn,fn) : (term -> string) * (nonterm -> string)
+val productions =
+  [(program,[[T PROGRAM,T IDENT,N globalNTS,T DO,N cpsCmd,T ENDPROGRAM]]),
+   (globalNTS,[[T GLOBAL,N cpsDecl],[]]),(cpsDecl,[[N decl,N cpsDeclNTS]]),
+   (cpsDeclNTS,[[T SEMICOLON,N decl,N cpsDeclNTS],[]]),
+   (decl,[[N stoDecl],[N funDecl],[N procDecl]]),
+   (stoDecl,[[N typedIdent],[T CHANGEMODE,N typedIdent]]),
+   (typedIdent,[[T IDENT,T COLON,T TYPE]]),
+   (funDecl,
+    [[T FUN,T IDENT,N paramList,T RETURNS,N stoDecl,N funDeclNTS,T DO,N cpsCmd,
+      T ENDFUN]]),(funDeclNTS,[[T LOCAL,N cpsStoDecl],[]]),
+   (paramList,[[T LPAREN,N paramListNTS,T RPAREN]]),
+   (paramListNTS,[[N param,N paramNTS],[]]),
+   (paramNTS,[[T COMMA,N param,N paramNTS],[]]),
+   (param,[[N changeModeNTS,N mechModeNTS,N typedIdent]]),
+   (changeModeNTS,[[T CHANGEMODE],[]]),(mechModeNTS,[[T MECHMODE],[]]),
+   (cpsCmd,[[N cmd,N cpsCmdNTS]]),
+   (cpsCmdNTS,[[T SEMICOLON,N cmd,N cpsCmdNTS],[]]),
+   (cmd,
+    [[T SKIP],[N expr,T BECOMES,N expr],
+     [T IF,N expr,T THEN,N cpsCmd,N ifelseNTS,T ENDIF],
+     [T WHILE,N expr,T DO,N cpsCmd,T ENDWHILE],
+     [T SWITCH,N expr,N caseNTS,N defaultCaseNTS,T ENDSWITCH],
+     [T CALL,T IDENT,N exprList],[T DEBUGIN,N expr],[T DEBUGOUT,N expr]]),
+   (ifelseNTS,[[T ELSE,N cpsCmd],[]]),
+   (caseNTS,[[T CASE,T LITERAL,T COLON,N cpsCmd,T ENDCASE,N caseNTS],[]]),
+   (defaultCaseNTS,[[T DEFAULTCASE,T COLON,N cpsCmd,T ENDCASE],[]]),
+   (expr,[[N term0,N condExprNTS]]),
+   (condExprNTS,[[T QUESTIONMARK,N expr,T COLON,N expr],[]]),
+   (term0,[[N term1,N term0NTS]]),...]
+  : (nonterm * (term,nonterm) FixFoxiCore.grammar_symbol list list) list
+val S = program : nonterm
+val result =
+  ({empty_RHSs=[],multiples_LHS=[],unproductives=[]},
+   SOME
+     ({grammar_not_LL1=[],unreachables=[]},
+      {FIRST=[(program,[PROGRAM]),(globalNTS,[GLOBAL]),
+              (cpsDecl,[PROC,FUN,CHANGEMODE,IDENT]),(cpsDeclNTS,[SEMICOLON]),
+              (decl,[PROC,FUN,CHANGEMODE,IDENT]),(stoDecl,[CHANGEMODE,IDENT]),
+              (typedIdent,[IDENT]),(funDecl,[FUN]),(funDeclNTS,[LOCAL]),
+              (paramList,[LPAREN]),(paramListNTS,[IDENT,MECHMODE,CHANGEMODE]),
+              (paramNTS,[COMMA]),(param,[IDENT,MECHMODE,CHANGEMODE]),
+              (changeModeNTS,[CHANGEMODE]),(mechModeNTS,[MECHMODE]),
+              (cpsCmd,
+               [DEBUGOUT,DEBUGIN,CALL,SWITCH,WHILE,IF,LPAREN,ADDOPR,NOT,IDENT,
+                LITERAL,SKIP]),(cpsCmdNTS,[SEMICOLON]),
+              (cmd,
+               [DEBUGOUT,DEBUGIN,CALL,SWITCH,WHILE,IF,LPAREN,ADDOPR,NOT,IDENT,
+                LITERAL,SKIP]),(ifelseNTS,[ELSE]),(caseNTS,[CASE]),
+              (defaultCaseNTS,[DEFAULTCASE]),
+              (expr,[LPAREN,ADDOPR,NOT,IDENT,LITERAL]),
+              (condExprNTS,[QUESTIONMARK]),
+              (term0,[LPAREN,ADDOPR,NOT,IDENT,LITERAL]),...],
+       FOLLOW=[(program,[$]),(globalNTS,[U DO]),(cpsDecl,[U DO]),
+               (cpsDeclNTS,[U DO]),(decl,[U DO,U SEMICOLON]),
+               (stoDecl,[U LOCAL,U DO,U SEMICOLON]),
+               (typedIdent,[U RPAREN,U COMMA,U LOCAL,U DO,U SEMICOLON]),
+               (funDecl,[U DO,U SEMICOLON]),(funDeclNTS,[U DO]),
+               (paramList,[U DO,U LOCAL,U RETURNS]),(paramListNTS,[U RPAREN]),
+               (paramNTS,[U RPAREN]),(param,[U RPAREN,U COMMA]),
+               (changeModeNTS,[U IDENT,U MECHMODE]),(mechModeNTS,[U IDENT]),
+               (cpsCmd,
+                [U ENDPROC,U ENDCASE,U ENDWHILE,U ENDIF,U ELSE,U ENDFUN,
+                 U ENDPROGRAM]),
+               (cpsCmdNTS,
+                [U ENDPROC,U ENDCASE,U ENDWHILE,U ENDIF,U ELSE,U ENDFUN,
+                 U ENDPROGRAM]),
+               (cmd,
+                [U ENDPROC,U ENDCASE,U ENDWHILE,U ENDIF,U ELSE,U ENDFUN,
+                 U ENDPROGRAM,U SEMICOLON]),(ifelseNTS,[U ENDIF]),
+               (caseNTS,[U ENDSWITCH,U DEFAULTCASE]),
+               (defaultCaseNTS,[U ENDSWITCH]),
+               (expr,
+                [U COMMA,U RPAREN,U COLON,U ENDSWITCH,U DEFAULTCASE,U CASE,
+                 U DO,U THEN,U ENDPROC,U ENDCASE,U ENDWHILE,U ENDIF,U ELSE,
+                 U ENDFUN,U ENDPROGRAM,U SEMICOLON,U BECOMES]),
+               (condExprNTS,
+                [U COMMA,U RPAREN,U COLON,U ENDSWITCH,U DEFAULTCASE,U CASE,
+                 U DO,U THEN,U ENDPROC,U ENDCASE,U ENDWHILE,U ENDIF,U ELSE,
+                 U ENDFUN,U ENDPROGRAM,U SEMICOLON,U BECOMES]),
+               (term0,
+                [U COMMA,U RPAREN,U COLON,U ENDSWITCH,U DEFAULTCASE,U CASE,
+                 U DO,U THEN,U ENDPROC,U ENDCASE,U ENDWHILE,U ENDIF,U ELSE,
+                 U ENDFUN,U ENDPROGRAM,U SEMICOLON,U BECOMES,U QUESTIONMARK]),
+               ...],
+       MM=[(program,[(U PROGRAM,[[#,#,#,#,#,#]])]),
+           (globalNTS,[(U GLOBAL,[[#,#]]),(U DO,[[]])]),
+           (cpsDecl,
+            [(U PROC,[[#,#]]),(U FUN,[[#,#]]),(U CHANGEMODE,[[#,#]]),
+             (U IDENT,[[#,#]])]),
+           (cpsDeclNTS,[(U SEMICOLON,[[#,#,#]]),(U DO,[[]])]),
+           (decl,
+            [(U CHANGEMODE,[[#]]),(U IDENT,[[#]]),(U FUN,[[#]]),
+             (U PROC,[[#]])]),
+           (stoDecl,[(U IDENT,[[#]]),(U CHANGEMODE,[[#,#]])]),
+           (typedIdent,[(U IDENT,[[#,#,#]])]),
+           (funDecl,[(U FUN,[[#,#,#,#,#,#,#,#,#]])]),
+           (funDeclNTS,[(U LOCAL,[[#,#]]),(U DO,[[]])]),
+           (paramList,[(U LPAREN,[[#,#,#]])]),
+           (paramListNTS,
+            [(U IDENT,[[#,#]]),(U MECHMODE,[[#,#]]),(U CHANGEMODE,[[#,#]]),
+             (U RPAREN,[[]])]),
+           (paramNTS,[(U COMMA,[[#,#,#]]),(U RPAREN,[[]])]),
+           (param,
+            [(U IDENT,[[#,#,#]]),(U MECHMODE,[[#,#,#]]),
+             (U CHANGEMODE,[[#,#,#]])]),
+           (changeModeNTS,
+            [(U CHANGEMODE,[[#]]),(U IDENT,[[]]),(U MECHMODE,[[]])]),
+           (mechModeNTS,[(U MECHMODE,[[#]]),(U IDENT,[[]])]),
+           (cpsCmd,
+            [(U DEBUGOUT,[[#,#]]),(U DEBUGIN,[[#,#]]),(U CALL,[[#,#]]),
+             (U SWITCH,[[#,#]]),(U WHILE,[[#,#]]),(U IF,[[#,#]]),
+             (U LPAREN,[[#,#]]),(U ADDOPR,[[#,#]]),(U NOT,[[#,#]]),
+             (U IDENT,[[#,#]]),(U LITERAL,[[#,#]]),(U SKIP,[[#,#]])]),
+           (cpsCmdNTS,
+            [(U SEMICOLON,[[#,#,#]]),(U ENDPROC,[[]]),(U ENDCASE,[[]]),
+             (U ENDWHILE,[[]]),(U ENDIF,[[]]),(U ELSE,[[]]),(U ENDFUN,[[]]),
+             (U ENDPROGRAM,[[]])]),
+           (cmd,
+            [(U SKIP,[[#]]),(U LPAREN,[[#,#,#]]),(U ADDOPR,[[#,#,#]]),
+             (U NOT,[[#,#,#]]),(U IDENT,[[#,#,#]]),(U LITERAL,[[#,#,#]]),
+             (U IF,[[#,#,#,#,#,#]]),(U WHILE,[[#,#,#,#,#]]),
+             (U SWITCH,[[#,#,#,#,#]]),(U CALL,[[#,#,#]]),(U DEBUGIN,[[#,#]]),
+             (U DEBUGOUT,[[#,#]])]),
+           (ifelseNTS,[(U ELSE,[[#,#]]),(U ENDIF,[[]])]),
+           (caseNTS,
+            [(U CASE,[[#,#,#,#,#,#]]),(U ENDSWITCH,[[]]),
+             (U DEFAULTCASE,[[]])]),
+           (defaultCaseNTS,[(U DEFAULTCASE,[[#,#,#,#]]),(U ENDSWITCH,[[]])]),
+           (expr,
+            [(U LPAREN,[[#,#]]),(U ADDOPR,[[#,#]]),(U NOT,[[#,#]]),
+             (U IDENT,[[#,#]]),(U LITERAL,[[#,#]])]),
+           (condExprNTS,
+            [(U QUESTIONMARK,[[#,#,#,#]]),(U COMMA,[[]]),(U RPAREN,[[]]),
+             (U COLON,[[]]),(U ENDSWITCH,[[]]),(U DEFAULTCASE,[[]]),
+             (U CASE,[[]]),(U DO,[[]]),(U THEN,[[]]),(U ENDPROC,[[]]),
+             (U ENDCASE,[[]]),(U ENDWHILE,[[]]),(U ENDIF,[[]]),(U ELSE,[[]]),
+             (U ENDFUN,[[]]),(U ENDPROGRAM,[[]]),(U SEMICOLON,[[]]),
+             (U BECOMES,[[]])]),
+           (term0,
+            [(U LPAREN,[[#,#]]),(U ADDOPR,[[#,#]]),(U NOT,[[#,#]]),
+             (U IDENT,[[#,#]]),(U LITERAL,[[#,#]])]),...],
+       NULLABLE=[(program,false),(globalNTS,true),(cpsDecl,false),
+                 (cpsDeclNTS,true),(decl,false),(stoDecl,false),
+                 (typedIdent,false),(funDecl,false),(funDeclNTS,true),
+                 (paramList,false),(paramListNTS,true),(paramNTS,true),
+                 (param,false),(changeModeNTS,true),(mechModeNTS,true),
+                 (cpsCmd,false),(cpsCmdNTS,true),(cmd,false),(ifelseNTS,true),
+                 (caseNTS,true),(defaultCaseNTS,true),(expr,false),
+                 (condExprNTS,true),(term0,false),...],S=program,
+       nonterms=[program,globalNTS,cpsDecl,cpsDeclNTS,decl,stoDecl,typedIdent,
+                 funDecl,funDeclNTS,paramList,paramListNTS,paramNTS,param,
+                 changeModeNTS,mechModeNTS,cpsCmd,cpsCmdNTS,cmd,ifelseNTS,
+                 caseNTS,defaultCaseNTS,expr,condExprNTS,term0,...],
+       prods=[(program,
+               [[T PROGRAM,T IDENT,N globalNTS,T DO,N cpsCmd,T ENDPROGRAM]]),
+              (globalNTS,[[T GLOBAL,N cpsDecl],[]]),
+              (cpsDecl,[[N decl,N cpsDeclNTS]]),
+              (cpsDeclNTS,[[T SEMICOLON,N decl,N cpsDeclNTS],[]]),
+              (decl,[[N stoDecl],[N funDecl],[N procDecl]]),
+              (stoDecl,[[N typedIdent],[T CHANGEMODE,N typedIdent]]),
+              (typedIdent,[[T IDENT,T COLON,T TYPE]]),
+              (funDecl,
+               [[T FUN,T IDENT,N paramList,T RETURNS,N stoDecl,N funDeclNTS,
+                 T DO,N cpsCmd,T ENDFUN]]),
+              (funDeclNTS,[[T LOCAL,N cpsStoDecl],[]]),
+              (paramList,[[T LPAREN,N paramListNTS,T RPAREN]]),
+              (paramListNTS,[[N param,N paramNTS],[]]),
+              (paramNTS,[[T COMMA,N param,N paramNTS],[]]),
+              (param,[[N changeModeNTS,N mechModeNTS,N typedIdent]]),
+              (changeModeNTS,[[T CHANGEMODE],[]]),
+              (mechModeNTS,[[T MECHMODE],[]]),(cpsCmd,[[N cmd,N cpsCmdNTS]]),
+              (cpsCmdNTS,[[T SEMICOLON,N cmd,N cpsCmdNTS],[]]),
+              (cmd,
+               [[T SKIP],[N expr,T BECOMES,N expr],
+                [T IF,N expr,T THEN,N cpsCmd,N ifelseNTS,T ENDIF],
+                [T WHILE,N expr,T DO,N cpsCmd,T ENDWHILE],
+                [T SWITCH,N expr,N caseNTS,N defaultCaseNTS,T ENDSWITCH],
+                [T CALL,T IDENT,N exprList],[T DEBUGIN,N expr],
+                [T DEBUGOUT,N expr]]),(ifelseNTS,[[T ELSE,N cpsCmd],[]]),
+              (caseNTS,
+               [[T CASE,T LITERAL,T COLON,N cpsCmd,T ENDCASE,N caseNTS],[]]),
+              (defaultCaseNTS,[[T DEFAULTCASE,T COLON,N cpsCmd,T ENDCASE],[]]),
+              (expr,[[N term0,N condExprNTS]]),
+              (condExprNTS,[[T QUESTIONMARK,N expr,T COLON,N expr],[]]),
+              (term0,[[N term1,N term0NTS]]),...],
+       terms=[PROC,ENDPROC,NOT,INIT,MULTOPR,ADDOPR,RELOPR,BOOLOPR,QUESTIONMARK,
+              DEFAULTCASE,CASE,LITERAL,ENDCASE,ELSE,DEBUGOUT,DEBUGIN,CALL,
+              SWITCH,ENDSWITCH,WHILE,ENDWHILE,IF,THEN,ENDIF,...]},fn),(fn,fn))
+  : (term,?.X1,nonterm) ff'result
+val it = () : unit

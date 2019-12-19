@@ -1,0 +1,21 @@
+program programInc
+global
+  x:int64;
+  y:int64;
+
+  proc inc(ref result:int64, max:int64)
+  do
+    result := result + 2;
+    debugout result;
+    if result < max*2 then
+      call inc(result, max)
+    endif
+  endproc
+  
+do
+  // test right / left asso
+  debugin x init;
+  y init := 0;
+  call inc(y, x);
+  debugout y
+endprogram

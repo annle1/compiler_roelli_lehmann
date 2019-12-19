@@ -1,0 +1,26 @@
+program programConditionalExpression
+global
+  const n:int64; const m:int64; var s:int64;
+  
+  fun fibonacciRek(copy const a:int64) returns r:int64
+  do
+    r init := a = 0 ? 0 : a = 1 ? 1 : fibonacciRek(a - 1) + fibonacciRek(a - 2);
+    debugout r
+  endfun
+ 
+do
+  debugin n init;
+  debugin m init;
+  debugout fibonacciRek(n < m ? n : m)
+  
+  // errors
+  //debugout fibonacciRek(n + m ? n : m)
+  //debugout fibonacciRek(n < m ? n : true)
+  
+  //takes a long time!
+  //s init := n > m ? fibonacciRek(n) : fibonacciRek(m > fibonacciRek(n) ? fibonacciRek(m) * 2 : fibonacciRek(n) * 4)
+  
+  //s init := n ? 12 : 64          // does not work, condExpr need to be of type bool
+  //s init := true ? n : false     // does not work, exprTrue and exprFalse not same type
+  //s init := n > m ? true : false // does not work, cant assign bool to int64
+endprogram

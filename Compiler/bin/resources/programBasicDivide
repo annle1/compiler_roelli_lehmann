@@ -1,0 +1,24 @@
+program programBasic
+global
+  const m:int64; const n:int64;
+  const q:int64; const r:int64;
+  
+  // test basic program
+  proc divide(copy const m:int64, copy const n:int64,
+          ref var q:int64, ref var r:int64)
+  do
+    // test while
+    q init := 0;
+    r init := m;
+    while r >= n do
+      q := q + 1;
+      r := r - n
+    endwhile
+  endproc
+do
+  debugin m init;
+  debugin n init;
+  call divide(m, n, q init, r init);
+  debugout q;
+  debugout r
+endprogram

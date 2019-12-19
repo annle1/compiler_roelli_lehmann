@@ -1,0 +1,563 @@
+/************** displayFirst  ***************/
+val it = () : unit
+- dispFIRST result;
+<program>
+  PROGRAM
+<globalNTS>
+  GLOBAL
+<cpsDecl>
+  PROC
+  FUN
+  CHANGEMODE
+  IDENT
+<cpsDeclNTS>
+  SEMICOLON
+<decl>
+  PROC
+  FUN
+  CHANGEMODE
+  IDENT
+<stoDecl>
+  CHANGEMODE
+  IDENT
+<typedIdent>
+  IDENT
+<funDecl>
+  FUN
+<funDeclNTS>
+  LOCAL
+<paramList>
+  LPAREN
+<paramListNTS>
+  IDENT
+  MECHMODE
+  CHANGEMODE
+<paramNTS>
+  COMMA
+<param>
+  IDENT
+  MECHMODE
+  CHANGEMODE
+<changeModeNTS>
+  CHANGEMODE
+<mechModeNTS>
+  MECHMODE
+<cpsCmd>
+  DEBUGOUT
+  DEBUGIN
+  CALL
+  SWITCH
+  WHILE
+  IF
+  LPAREN
+  ADDOPR
+  NOT
+  IDENT
+  LITERAL
+  SKIP
+<cpsCmdNTS>
+  SEMICOLON
+<cmd>
+  DEBUGOUT
+  DEBUGIN
+  CALL
+  SWITCH
+  WHILE
+  IF
+  LPAREN
+  ADDOPR
+  NOT
+  IDENT
+  LITERAL
+  SKIP
+<ifelseNTS>
+  ELSE
+<caseNTS>
+  CASE
+<defaultCaseNTS>
+  DEFAULTCASE
+<expr>
+  LPAREN
+  ADDOPR
+  NOT
+  IDENT
+  LITERAL
+<condExprNTS>
+  QUESTIONMARK
+<term0>
+  LPAREN
+  ADDOPR
+  NOT
+  IDENT
+  LITERAL
+<term0NTS>
+  BOOLOPR
+<term1>
+  LPAREN
+  ADDOPR
+  NOT
+  IDENT
+  LITERAL
+<term1NTS>
+  RELOPR
+<term2>
+  LPAREN
+  ADDOPR
+  NOT
+  IDENT
+  LITERAL
+<term2NTS>
+  ADDOPR
+<term3>
+  LPAREN
+  ADDOPR
+  NOT
+  IDENT
+  LITERAL
+<term3NTS>
+  MULTOPR
+<factor>
+  LPAREN
+  ADDOPR
+  NOT
+  IDENT
+  LITERAL
+<factorNTS>
+  LPAREN
+  INIT
+<exprList>
+  LPAREN
+<exprListLparenNTS>
+  LPAREN
+  ADDOPR
+  NOT
+  IDENT
+  LITERAL
+<exprListNTS>
+  COMMA
+<monadicOpr>
+  ADDOPR
+  NOT
+<cpsStoDecl>
+  CHANGEMODE
+  IDENT
+<cpsStoDeclNTS>
+  SEMICOLON
+<procDecl>
+  PROC
+<procDeclNTS>
+  LOCAL
+val it = () : unit
+
+/***************** dispNULLABLE *********************/
+
+- dispNULLABLE result;
+<program> false
+<globalNTS> true
+<cpsDecl> false
+<cpsDeclNTS> true
+<decl> false
+<stoDecl> false
+<typedIdent> false
+<funDecl> false
+<funDeclNTS> true
+<paramList> false
+<paramListNTS> true
+<paramNTS> true
+<param> false
+<changeModeNTS> true
+<mechModeNTS> true
+<cpsCmd> false
+<cpsCmdNTS> true
+<cmd> false
+<ifelseNTS> true
+<caseNTS> true
+<defaultCaseNTS> true
+<expr> false
+<condExprNTS> true
+<term0> false
+<term0NTS> true
+<term1> false
+<term1NTS> true
+<term2> false
+<term2NTS> true
+<term3> false
+<term3NTS> true
+<factor> false
+<factorNTS> true
+<exprList> false
+<exprListLparenNTS> true
+<exprListNTS> true
+<monadicOpr> false
+<cpsStoDecl> false
+<cpsStoDeclNTS> true
+<procDecl> false
+<procDeclNTS> true
+val it = () : unit
+
+/*************** dispFOLLOW *******************/
+
+- dispFOLLOW result;
+<program>
+  $
+<globalNTS>
+  terminal DO
+<cpsDecl>
+  terminal DO
+<cpsDeclNTS>
+  terminal DO
+<decl>
+  terminal DO
+  terminal SEMICOLON
+<stoDecl>
+  terminal LOCAL
+  terminal DO
+  terminal SEMICOLON
+<typedIdent>
+  terminal RPAREN
+  terminal COMMA
+  terminal LOCAL
+  terminal DO
+  terminal SEMICOLON
+<funDecl>
+  terminal DO
+  terminal SEMICOLON
+<funDeclNTS>
+  terminal DO
+<paramList>
+  terminal DO
+  terminal LOCAL
+  terminal RETURNS
+<paramListNTS>
+  terminal RPAREN
+<paramNTS>
+  terminal RPAREN
+<param>
+  terminal RPAREN
+  terminal COMMA
+<changeModeNTS>
+  terminal IDENT
+  terminal MECHMODE
+<mechModeNTS>
+  terminal IDENT
+<cpsCmd>
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+<cpsCmdNTS>
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+<cmd>
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+<ifelseNTS>
+  terminal ENDIF
+<caseNTS>
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+<defaultCaseNTS>
+  terminal ENDSWITCH
+<expr>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+<condExprNTS>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+<term0>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+<term0NTS>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+<term1>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+  terminal BOOLOPR
+<term1NTS>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+  terminal BOOLOPR
+<term2>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+  terminal BOOLOPR
+  terminal RELOPR
+<term2NTS>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+  terminal BOOLOPR
+  terminal RELOPR
+<term3>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+  terminal BOOLOPR
+  terminal RELOPR
+  terminal ADDOPR
+<term3NTS>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+  terminal BOOLOPR
+  terminal RELOPR
+  terminal ADDOPR
+<factor>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+  terminal BOOLOPR
+  terminal RELOPR
+  terminal ADDOPR
+  terminal MULTOPR
+<factorNTS>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+  terminal BECOMES
+  terminal QUESTIONMARK
+  terminal BOOLOPR
+  terminal RELOPR
+  terminal ADDOPR
+  terminal MULTOPR
+<exprList>
+  terminal COMMA
+  terminal RPAREN
+  terminal COLON
+  terminal ENDSWITCH
+  terminal DEFAULTCASE
+  terminal CASE
+  terminal DO
+  terminal THEN
+  terminal BECOMES
+  terminal QUESTIONMARK
+  terminal BOOLOPR
+  terminal RELOPR
+  terminal ADDOPR
+  terminal MULTOPR
+  terminal ENDPROC
+  terminal ENDCASE
+  terminal ENDWHILE
+  terminal ENDIF
+  terminal ELSE
+  terminal ENDFUN
+  terminal ENDPROGRAM
+  terminal SEMICOLON
+<exprListLparenNTS>
+  terminal RPAREN
+<exprListNTS>
+  terminal RPAREN
+<monadicOpr>
+  terminal LPAREN
+  terminal ADDOPR
+  terminal NOT
+  terminal IDENT
+  terminal LITERAL
+<cpsStoDecl>
+  terminal DO
+<cpsStoDeclNTS>
+  terminal DO
+<procDecl>
+  terminal DO
+  terminal SEMICOLON
+<procDeclNTS>
+  terminal DO
+val it = () : unit

@@ -1,0 +1,9 @@
+program programSwitchCase
+global
+  const m:int64
+  
+do
+  // test right / left asso
+  m init := 1 - 1 - 1;
+  debugout m
+endprogram

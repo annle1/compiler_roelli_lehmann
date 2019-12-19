@@ -1,0 +1,552 @@
+- dispMM result;
+<program>
+  terminal PROGRAM
+    PROGRAM IDENT <globalNTS> DO <cpsCmd> ENDPROGRAM
+<globalNTS>
+  terminal GLOBAL
+    GLOBAL <cpsDecl>
+  terminal DO
+
+<cpsDecl>
+  terminal PROC
+    <decl> <cpsDeclNTS>
+  terminal FUN
+    <decl> <cpsDeclNTS>
+  terminal CHANGEMODE
+    <decl> <cpsDeclNTS>
+  terminal IDENT
+    <decl> <cpsDeclNTS>
+
+<cpsDeclNTS>
+  terminal SEMICOLON
+    SEMICOLON <decl> <cpsDeclNTS>
+  terminal DO
+
+<decl>
+  terminal CHANGEMODE
+    <stoDecl>
+  terminal IDENT
+    <stoDecl>
+  terminal FUN
+    <funDecl>
+  terminal PROC
+    <procDecl>
+
+<stoDecl>
+  terminal IDENT
+    <typedIdent>
+  terminal CHANGEMODE
+    CHANGEMODE <typedIdent>
+
+<typedIdent>
+  terminal IDENT
+    IDENT COLON TYPE
+
+<funDecl>
+  terminal FUN
+    FUN IDENT <paramList> RETURNS <stoDecl> <funDeclNTS> DO <cpsCmd> ENDFUN
+
+<funDeclNTS>
+  terminal LOCAL
+    LOCAL <cpsStoDecl>
+  terminal DO
+
+<paramList>
+  terminal LPAREN
+    LPAREN <paramListNTS> RPAREN
+
+<paramListNTS>
+  terminal IDENT
+    <param> <paramNTS>
+  terminal MECHMODE
+    <param> <paramNTS>
+  terminal CHANGEMODE
+    <param> <paramNTS>
+  terminal RPAREN
+
+<paramNTS>
+  terminal COMMA
+    COMMA <param> <paramNTS>
+  terminal RPAREN
+
+<param>
+  terminal IDENT
+    <changeModeNTS> <mechModeNTS> <typedIdent>
+  terminal MECHMODE
+    <changeModeNTS> <mechModeNTS> <typedIdent>
+  terminal CHANGEMODE
+    <changeModeNTS> <mechModeNTS> <typedIdent>
+
+<changeModeNTS>
+  terminal CHANGEMODE
+    CHANGEMODE
+  terminal IDENT
+
+  terminal MECHMODE
+
+<mechModeNTS>
+  terminal MECHMODE
+    MECHMODE
+  terminal IDENT
+
+<cpsCmd>
+  terminal DEBUGOUT
+    <cmd> <cpsCmdNTS>
+  terminal DEBUGIN
+    <cmd> <cpsCmdNTS>
+  terminal CALL
+    <cmd> <cpsCmdNTS>
+  terminal SWITCH
+    <cmd> <cpsCmdNTS>
+  terminal WHILE
+    <cmd> <cpsCmdNTS>
+  terminal IF
+    <cmd> <cpsCmdNTS>
+  terminal LPAREN
+    <cmd> <cpsCmdNTS>
+  terminal ADDOPR
+    <cmd> <cpsCmdNTS>
+  terminal NOT
+    <cmd> <cpsCmdNTS>
+  terminal IDENT
+    <cmd> <cpsCmdNTS>
+  terminal LITERAL
+    <cmd> <cpsCmdNTS>
+  terminal SKIP
+    <cmd> <cpsCmdNTS>
+
+<cpsCmdNTS>
+  terminal SEMICOLON
+    SEMICOLON <cmd> <cpsCmdNTS>
+  terminal ENDPROC
+
+  terminal ENDCASE
+
+  terminal ENDWHILE
+
+  terminal ENDIF
+
+  terminal ELSE
+
+  terminal ENDFUN
+
+  terminal ENDPROGRAM
+
+<cmd>
+  terminal SKIP
+    SKIP
+  terminal LPAREN
+    <expr> BECOMES <expr>
+  terminal ADDOPR
+    <expr> BECOMES <expr>
+  terminal NOT
+    <expr> BECOMES <expr>
+  terminal IDENT
+    <expr> BECOMES <expr>
+  terminal LITERAL
+    <expr> BECOMES <expr>
+  terminal IF
+    IF <expr> THEN <cpsCmd> <ifelseNTS> ENDIF
+  terminal WHILE
+    WHILE <expr> DO <cpsCmd> ENDWHILE
+  terminal SWITCH
+    SWITCH <expr> <caseNTS> <defaultCaseNTS> ENDSWITCH
+  terminal CALL
+    CALL IDENT <exprList>
+  terminal DEBUGIN
+    DEBUGIN <expr>
+  terminal DEBUGOUT
+    DEBUGOUT <expr>
+
+<ifelseNTS>
+  terminal ELSE
+    ELSE <cpsCmd>
+  terminal ENDIF
+
+<caseNTS>
+  terminal CASE
+    CASE LITERAL COLON <cpsCmd> ENDCASE <caseNTS>
+  terminal ENDSWITCH
+
+  terminal DEFAULTCASE
+
+<defaultCaseNTS>
+  terminal DEFAULTCASE
+    DEFAULTCASE COLON <cpsCmd> ENDCASE
+  terminal ENDSWITCH
+
+<expr>
+  terminal LPAREN
+    <term0> <condExprNTS>
+  terminal ADDOPR
+    <term0> <condExprNTS>
+  terminal NOT
+    <term0> <condExprNTS>
+  terminal IDENT
+    <term0> <condExprNTS>
+  terminal LITERAL
+    <term0> <condExprNTS>
+
+<condExprNTS>
+  terminal QUESTIONMARK
+    QUESTIONMARK <expr> COLON <expr>
+  terminal COMMA
+
+  terminal RPAREN
+
+  terminal COLON
+
+  terminal ENDSWITCH
+
+  terminal DEFAULTCASE
+
+  terminal CASE
+
+  terminal DO
+
+  terminal THEN
+
+  terminal ENDPROC
+
+  terminal ENDCASE
+
+  terminal ENDWHILE
+
+  terminal ENDIF
+
+  terminal ELSE
+
+  terminal ENDFUN
+
+  terminal ENDPROGRAM
+
+  terminal SEMICOLON
+
+  terminal BECOMES
+
+<term0>
+  terminal LPAREN
+    <term1> <term0NTS>
+  terminal ADDOPR
+    <term1> <term0NTS>
+  terminal NOT
+    <term1> <term0NTS>
+  terminal IDENT
+    <term1> <term0NTS>
+  terminal LITERAL
+    <term1> <term0NTS>
+
+<term0NTS>
+  terminal BOOLOPR
+    BOOLOPR <term1> <term0NTS>
+  terminal COMMA
+
+  terminal RPAREN
+
+  terminal COLON
+
+  terminal ENDSWITCH
+
+  terminal DEFAULTCASE
+
+  terminal CASE
+
+  terminal DO
+
+  terminal THEN
+
+  terminal ENDPROC
+
+  terminal ENDCASE
+
+  terminal ENDWHILE
+
+  terminal ENDIF
+
+  terminal ELSE
+
+  terminal ENDFUN
+
+  terminal ENDPROGRAM
+
+  terminal SEMICOLON
+
+  terminal BECOMES
+
+  terminal QUESTIONMARK
+
+<term1>
+  terminal LPAREN
+    <term2> <term1NTS>
+  terminal ADDOPR
+    <term2> <term1NTS>
+  terminal NOT
+    <term2> <term1NTS>
+  terminal IDENT
+    <term2> <term1NTS>
+  terminal LITERAL
+    <term2> <term1NTS>
+
+<term1NTS>
+  terminal RELOPR
+    RELOPR <term2>
+  terminal COMMA
+
+  terminal RPAREN
+
+  terminal COLON
+
+  terminal ENDSWITCH
+
+  terminal DEFAULTCASE
+
+  terminal CASE
+
+  terminal DO
+
+  terminal THEN
+
+  terminal ENDPROC
+
+  terminal ENDCASE
+
+  terminal ENDWHILE
+
+  terminal ENDIF
+
+  terminal ELSE
+
+  terminal ENDFUN
+
+  terminal ENDPROGRAM
+
+  terminal SEMICOLON
+
+  terminal BECOMES
+
+  terminal QUESTIONMARK
+
+  terminal BOOLOPR
+
+<term2>
+  terminal LPAREN
+    <term3> <term2NTS>
+  terminal ADDOPR
+    <term3> <term2NTS>
+  terminal NOT
+    <term3> <term2NTS>
+  terminal IDENT
+    <term3> <term2NTS>
+  terminal LITERAL
+    <term3> <term2NTS>
+
+<term2NTS>
+  terminal ADDOPR
+    ADDOPR <term3> <term2NTS>
+  terminal COMMA
+
+  terminal RPAREN
+
+  terminal COLON
+
+  terminal ENDSWITCH
+
+  terminal DEFAULTCASE
+
+  terminal CASE
+
+  terminal DO
+
+  terminal THEN
+
+  terminal ENDPROC
+
+  terminal ENDCASE
+
+  terminal ENDWHILE
+
+  terminal ENDIF
+
+  terminal ELSE
+
+  terminal ENDFUN
+
+  terminal ENDPROGRAM
+
+  terminal SEMICOLON
+
+  terminal BECOMES
+
+  terminal QUESTIONMARK
+
+  terminal BOOLOPR
+
+  terminal RELOPR
+
+<term3>
+  terminal LPAREN
+    <factor> <term3NTS>
+  terminal ADDOPR
+    <factor> <term3NTS>
+  terminal NOT
+    <factor> <term3NTS>
+  terminal IDENT
+    <factor> <term3NTS>
+  terminal LITERAL
+    <factor> <term3NTS>
+
+<term3NTS>
+  terminal MULTOPR
+    MULTOPR <factor> <term3NTS>
+  terminal COMMA
+
+  terminal RPAREN
+
+  terminal COLON
+
+  terminal ENDSWITCH
+
+  terminal DEFAULTCASE
+
+  terminal CASE
+
+  terminal DO
+
+  terminal THEN
+
+  terminal ENDPROC
+
+  terminal ENDCASE
+
+  terminal ENDWHILE
+
+  terminal ENDIF
+
+  terminal ELSE
+
+  terminal ENDFUN
+
+  terminal ENDPROGRAM
+
+  terminal SEMICOLON
+
+  terminal BECOMES
+
+  terminal QUESTIONMARK
+
+  terminal BOOLOPR
+
+  terminal RELOPR
+
+  terminal ADDOPR
+
+<factor>
+  terminal LITERAL
+    LITERAL
+  terminal IDENT
+    IDENT <factorNTS>
+  terminal ADDOPR
+    <monadicOpr> <factor>
+  terminal NOT
+    <monadicOpr> <factor>
+  terminal LPAREN
+    LPAREN <expr> RPAREN
+
+<factorNTS>
+  terminal INIT
+    INIT
+  terminal LPAREN
+    <exprList>
+  terminal COMMA
+
+  terminal RPAREN
+
+  terminal COLON
+
+  terminal ENDSWITCH
+
+  terminal DEFAULTCASE
+
+  terminal CASE
+
+  terminal DO
+
+  terminal THEN
+
+  terminal ENDPROC
+
+  terminal ENDCASE
+
+  terminal ENDWHILE
+
+  terminal ENDIF
+
+  terminal ELSE
+
+  terminal ENDFUN
+
+  terminal ENDPROGRAM
+
+  terminal SEMICOLON
+
+  terminal BECOMES
+
+  terminal QUESTIONMARK
+
+  terminal BOOLOPR
+
+  terminal RELOPR
+
+  terminal ADDOPR
+
+  terminal MULTOPR
+
+<exprList>
+  terminal LPAREN
+    LPAREN <exprListLparenNTS> RPAREN
+
+<exprListLparenNTS>
+  terminal LPAREN
+    <expr> <exprListNTS>
+  terminal ADDOPR
+    <expr> <exprListNTS>
+  terminal NOT
+    <expr> <exprListNTS>
+  terminal IDENT
+    <expr> <exprListNTS>
+  terminal LITERAL
+    <expr> <exprListNTS>
+  terminal RPAREN
+
+<exprListNTS>
+  terminal COMMA
+    COMMA <expr> <exprListNTS>
+  terminal RPAREN
+
+<monadicOpr>
+  terminal NOT
+    NOT
+  terminal ADDOPR
+    ADDOPR
+
+<cpsStoDecl>
+  terminal CHANGEMODE
+    <stoDecl> <cpsStoDeclNTS>
+  terminal IDENT
+    <stoDecl> <cpsStoDeclNTS>
+
+<cpsStoDeclNTS>
+  terminal SEMICOLON
+    SEMICOLON <stoDecl> <cpsStoDeclNTS>
+  terminal DO
+
+<procDecl>
+  terminal PROC
+    PROC IDENT <paramList> <procDeclNTS> DO <cpsCmd> ENDPROC
+
+<procDeclNTS>
+  terminal LOCAL
+    LOCAL <cpsStoDecl>
+  terminal DO
+
+val it = () : unit
